@@ -1,0 +1,114 @@
+/* crear.css - Estilos unificados con el panel administrativo general */
+
+/* Contenedor principal */
+.noticia-crear-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Título principal */
+.noticia-crear-container h1 {
+    color: #083c5f;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #f8a51b;
+    padding-bottom: 0.5rem;
+}
+
+/* Botón volver */
+.noticia-crear-volver {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #00695c;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.noticia-crear-volver:hover {
+    color: #004d40;
+}
+
+/* Mensajes de error */
+.noticia-crear-error {
+    background-color: #ffe6e6;
+    color: #a00;
+    padding: 1rem;
+    border-left: 5px solid #c0392b;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+}
+
+/* Formulario */
+.noticia-crear-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.noticia-crear-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.noticia-crear-form-label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.noticia-crear-form-control,
+.noticia-crear-select {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.noticia-crear-form-control:focus,
+.noticia-crear-select:focus {
+    border-color: #00695c;
+    box-shadow: 0 0 0 2px rgba(0, 105, 92, 0.2);
+    outline: none;
+}
+
+.noticia-crear-form-control[type="file"] {
+    padding: 0.5rem;
+}
+
+/* Textarea */
+.noticia-crear-textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+/* Botón de envío */
+.noticia-crear-submit {
+    background-color: #00695c;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start;
+}
+
+.noticia-crear-submit:hover {
+    background-color: #004d40;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.noticia-crear-footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: #777;
+}

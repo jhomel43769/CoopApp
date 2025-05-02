@@ -11,17 +11,17 @@ if (!isset($_SESSION['admin'])) {
 // Consulta para noticias
 try {
   $stmtNoticias = $conexion->query("
-        SELECT 
-            id,
-            titulo, 
-            SUBSTRING(contenido, 1, 100) AS resumen, 
-            DATE_FORMAT(fecha_publicacion, '%d/%m/%Y %H:%i') AS fecha_formateada,
-            estado,
-            imagen_url
-        FROM noticias 
-        ORDER BY fecha_publicacion DESC
-        LIMIT 5
-    ");
+          SELECT 
+              id,
+              titulo, 
+              SUBSTRING(contenido, 1, 100) AS resumen, 
+              DATE_FORMAT(fecha_publicacion, '%d/%m/%Y %H:%i') AS fecha_formateada,
+              estado,
+              imagen_url
+          FROM noticias 
+          ORDER BY fecha_publicacion DESC
+          LIMIT 5
+      ");
   $noticias = $stmtNoticias->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   $errorNoticias = "Error al cargar noticias: " . $e->getMessage();
@@ -30,17 +30,17 @@ try {
 // Consulta para servicios
 try {
   $stmtServicios = $conexion->query("
-        SELECT 
-            id,
-            nombre, 
-            SUBSTRING(descripcion, 1, 80) AS resumen,
-            icono,
-            CASE WHEN destacado = 1 THEN 'Sí' ELSE 'No' END AS destacado,
-            orden
-        FROM servicios 
-        ORDER BY orden ASC, nombre ASC
-        LIMIT 5
-    ");
+          SELECT 
+              id,
+              nombre, 
+              SUBSTRING(descripcion, 1, 80) AS resumen,
+              icono,
+              CASE WHEN destacado = 1 THEN 'Sí' ELSE 'No' END AS destacado,
+              orden
+          FROM servicios 
+          ORDER BY orden ASC, nombre ASC
+          LIMIT 5
+      ");
   $servicios = $stmtServicios->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   $errorServicios = "Error al cargar servicios: " . $e->getMessage();
@@ -237,16 +237,6 @@ try {
     </div>
   </footer>
 
-  <script>
-    // Confirmación antes de eliminar
-    document.querySelectorAll('.btn-danger').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        if (!confirm('¿Está seguro que desea eliminar este elemento?')) {
-          e.preventDefault();
-        }
-      });
-    });
-  </script>
 </body>
 
 </html>

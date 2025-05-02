@@ -1,0 +1,141 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1 {
+    color: #083c5f;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #f8a51b;
+    padding-bottom: 0.5rem;
+}
+
+/* Main Container */
+.contenedor {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Back Button */
+.boton-volver {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #00695c;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.boton-volver:hover {
+    color: #004d40;
+}
+
+/* Error Messages */
+.error {
+    background-color: #ffe6e6;
+    color: #a00;
+    padding: 1rem;
+    border-left: 5px solid #c0392b;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+}
+
+/* Form Styles */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.campo label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.campo input,
+.campo textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    border-color: #00695c;
+    box-shadow: 0 0 0 2px rgba(0, 105, 92, 0.2);
+    outline: none;
+}
+
+textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+/* Checkbox */
+.campo-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.campo-checkbox input {
+    width: auto;
+}
+
+/* Submit Button */
+.boton {
+    background-color: #00695c;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start;
+}
+
+.boton:hover {
+    background-color: #004d40;
+    transform: translateY(-2px);
+}
+
+/* Footer Styles */
+.noticia-crear-footer {
+    background-color: #083c5f;
+    color: #fff;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.noticia-crear-footer .contenedor {
+    text-align: center;
+}
+
+.noticia-crear-footer p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.noticia-crear-footer i {
+    margin-right: 0.5rem;
+    color: #f8a51b;
+}

@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Editar Servicio - COOPMAIMÓN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/G-styles.css">
-    <link rel="stylesheet" href="../../css/adminPanel.css">
+    <link rel="stylesheet" href="../../css/EditarServicio.css">
 </head>
 
 <body>
@@ -126,12 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     required><?= htmlspecialchars($descripcion) ?></textarea>
             </div>
 
-            <div class="campo">
-                <label for="icono">Clase de icono (Font Awesome):</label>
-                <input type="text" id="icono" name="icono" value="<?= htmlspecialchars($icono) ?>"
-                    placeholder="Ej: fas fa-home">
-                <small>Ver <a href="https://fontawesome.com/icons" target="_blank">iconos disponibles</a></small>
-            </div>
 
             <div class="campo">
                 <label for="url">URL (opcional):</label>

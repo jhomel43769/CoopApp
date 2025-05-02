@@ -1,0 +1,179 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0; /* Elimina el padding para centrar correctamente */
+    color: #333;
+    display: flex; /* Flexbox para centrar */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    height: 100vh; /* Altura completa de la ventana */
+}
+
+/* Container styling */
+.crud-container {
+    max-width: 900px; /* Aumenta el ancho máximo */
+    padding: 30px; /* Aumenta el padding */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Header styling */
+.crud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.crud-title {
+    font-size: 24px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+/* Button styling */
+.crud-btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.crud-btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.crud-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.crud-btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.crud-btn-success:hover {
+    background-color: #218838;
+}
+
+/* Alert/Error styling */
+.crud-alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.crud-alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.crud-alert ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.crud-alert li {
+    margin: 5px 0;
+}
+
+/* Form styling */
+.crud-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.crud-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.crud-form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.crud-form-control {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.crud-form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+textarea.crud-form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Checkbox styling */
+.crud-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.crud-checkbox input {
+    width: auto;
+    margin: 0;
+}
+
+.crud-checkbox label {
+    margin: 0;
+    font-weight: normal;
+}
+
+/* Image preview styling */
+.crud-image-preview {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Helper text */
+.crud-help-text {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.crud-help-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.crud-help-text a:hover {
+    text-decoration: underline;
+}
+
+/* Icon styling */
+.crud-icon {
+    font-size: 18px;
+}

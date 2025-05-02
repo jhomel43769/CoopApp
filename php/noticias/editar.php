@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombreImagen = $noticia['imagen_url'];
     if ($eliminarImagen && $nombreImagen) {
         // Eliminar archivo físico
-        $rutaImagen = '../../uploads/' . $nombreImagen;
+        $rutaImagen = "../../uploads/{$nombreImagen}";
         if (file_exists($rutaImagen)) {
             unlink($rutaImagen);
         }
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Eliminar imagen anterior si existe
             if ($nombreImagen) {
-                $rutaAnterior = '../../uploads/' . $nombreImagen;
+                $rutaAnterior = "../../uploads/{$nombreImagen}";
                 if (file_exists($rutaAnterior)) {
                     unlink($rutaAnterior);
                 }
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Subir nueva imagen
             $nombreImagen = uniqid() . '.' . $extension;
-            $rutaDestino = '../../uploads/' . $nombreImagen;
+            $rutaDestino = "../../uploads/{$nombreImagen}";
 
             if (!move_uploaded_file($imagen['tmp_name'], $rutaDestino)) {
                 $errores[] = 'Error al subir la imagen';
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         contenido = :contenido, 
                         estado = :estado, 
                         imagen_url = :imagen_url,
-                        fecha_publicacion = CASE WHEN :estado = 'publicada' AND estado = 'borrador' THEN NOW() ELSE fecha_publicacion END
+                        fecha_publicacion = CASE WHEN :nuevo_estado = 'publicada' AND estado = 'borrador' THEN NOW() ELSE fecha_publicacion END
                     WHERE id = :id";
 
             $stmt = $conexion->prepare($sql);
@@ -100,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':titulo' => $titulo,
                 ':contenido' => $contenido,
                 ':estado' => $estado,
+                ':nuevo_estado' => $estado,
                 ':imagen_url' => $nombreImagen,
                 ':id' => $id
             ]);
@@ -127,10 +128,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Editar Noticia - COOPMAIMÓN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/G-styles.css">
-    <link rel="stylesheet" href="../../css/G-crud-styles.css">
+    <link rel="stylesheet" href="../../css/editarNoticias.css">
 </head>
 
 <body>
+
     <div class="crud-container">
         <div class="crud-header">
             <h1 class="crud-title"><i class="fas fa-newspaper"></i> Editar Noticia</h1>
@@ -187,6 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="crud-btn crud-btn-primary"><i class="fas fa-save"></i> Guardar Cambios</button>
         </form>
     </div>
+
 
     <script>
         // Validación básica del formulario

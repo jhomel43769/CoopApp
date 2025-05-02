@@ -100,6 +100,66 @@ try {
     .boton-grande:hover {
       background-color: #218838;
     }
+
+    .bienvenida {
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .bienvenida h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .bienvenida p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-stats {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      flex: 1;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-card i {
+      font-size: 30px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .stat-card h3 {
+      font-size: 22px;
+      color: #333;
+      margin: 0;
+    }
+
+    .stat-card p {
+      font-size: 14px;
+      color: #777;
+      margin: 5px 0 0;
+    }
   </style>
 
 
@@ -136,7 +196,6 @@ try {
           <p>Servicios</p>
         </div>
       </div>
-      <!-- Se eliminó la sección de acciones-panel con los botones -->
     </section>
 
     <div class="dashboard-grid contenedor">

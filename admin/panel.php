@@ -64,6 +64,37 @@ try {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="../css/G-styles.css" />
   <link rel="stylesheet" href="../css/adminPanel.css" />
+  <style>
+    /* Estilos adicionales para los botones grandes */
+    .boton-grande {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 20px;
+      background: #3498db;
+      color: white;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.3s;
+      font-size: 1.1rem;
+      font-weight: 500;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .boton-grande:hover {
+      background: #2980b9;
+    }
+
+    .card-footer {
+      padding: 15px 20px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -97,12 +128,7 @@ try {
           <p>Servicios</p>
         </div>
       </div>
-      <div class="acciones-panel">
-        <a href="../php/noticias/crear.php" class="boton-panel"><i class="fas fa-plus"></i> Nueva Noticia</a>
-        <a href="../php/servicios/crear.php" class="boton-panel"><i class="fas fa-cogs"></i> Nuevo Servicio</a>
-        <a href="../php/logout.php" class="boton-panel boton-salir"><i class="fas fa-sign-out-alt"></i> Cerrar
-          Sesión</a>
-      </div>
+      <!-- Se eliminó la sección de acciones-panel con los botones -->
     </section>
 
     <div class="dashboard-grid contenedor">
@@ -150,6 +176,7 @@ try {
           <div class="card-footer">
             <a href="../php/noticias/listar.php" class="btn-link">Ver todas las noticias <i
                 class="fas fa-arrow-right"></i></a>
+            <a href="../php/noticias/crear.php" class="boton-grande"><i class="fas fa-plus"></i> Nueva Noticia</a>
           </div>
         <?php endif; ?>
       </section>
@@ -196,6 +223,7 @@ try {
           <div class="card-footer">
             <a href="../php/servicios/listar.php" class="btn-link">Ver todos los servicios <i
                 class="fas fa-arrow-right"></i></a>
+            <a href="../php/servicios/crear.php" class="boton-grande"><i class="fas fa-cogs"></i> Nuevo Servicio</a>
           </div>
         <?php endif; ?>
       </section>

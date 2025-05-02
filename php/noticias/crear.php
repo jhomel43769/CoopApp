@@ -1,14 +1,15 @@
 <?php
-session_start();
+session_start();  // Iniciar sesión al comienzo del archivo
 require_once '../../db/conexion.php';
 
 if (!isset($_SESSION['admin'])) {
-    header("Location: ../../login.html");
+    header("Location: ../../login.html");  // Redirige a login si no hay sesión activa
     exit;
 }
 
 $errores = [];
 $titulo = $contenido = $estado = '';
+$admin_username = $_SESSION['admin']; // Contiene 'admin'
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = trim($_POST['titulo']);
@@ -29,6 +30,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'Estado no válido';
     }
 
+    // Obtener el ID del usuario a partir del nombre de usuario
+    try {
+        $sql = "SELECT id FROM usuarios WHERE usuario = :admin_username";
+        $stmt = $conexion->prepare($sql);
+        $stmt->execute([':admin_username' => $admin_username]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$usuario) {
+            // Si no encuentra el usuario por ese campo, podemos intentar con email por si acaso
+            $sql_alt = "SELECT id FROM usuarios WHERE email = :admin_username";
+            $stmt = $conexion->prepare($sql_alt);
+            $stmt->execute([':admin_username' => $admin_username]);
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$usuario) {
+                $errores[] = 'El usuario administrador no existe en la base de datos';
+            }
+        }
+
+        if ($usuario) {
+            $usuario_id = $usuario['id']; // Usar el ID real encontrado en la base de datos
+        } else {
+            // Si aún no encontramos el usuario, podemos:
+            // 1. Usar un ID de administrador predeterminado
+            $usuario_id = 1; // Asumiendo que el ID 1 pertenece a un administrador
+            // 2. O crear un nuevo usuario para el administrador en este momento
+            /*
+            $sql_insert = "INSERT INTO usuarios (usuario, nombre_completo, rol, fecha_creacion) 
+                         VALUES (:usuario, 'Administrador', 'editor', NOW())";
+            $stmt = $conexion->prepare($sql_insert);
+            $stmt->execute([':usuario' => $admin_username]);
+            $usuario_id = $conexion->lastInsertId();
+            */
+        }
+
+    } catch (PDOException $e) {
+        $errores[] = "Error al verificar el usuario: " . $e->getMessage();
+    }
+
     // Procesar imagen
     $nombreImagen = null;
     if ($imagen && $imagen['error'] === UPLOAD_ERR_OK) {
@@ -47,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Si no hay errores, insertamos la noticia
     if (empty($errores)) {
         try {
             $sql = "INSERT INTO noticias (titulo, contenido, fecha_publicacion, estado, imagen_url, usuario_id) 
@@ -58,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':contenido' => $contenido,
                 ':estado' => $estado,
                 ':imagen_url' => $nombreImagen,
-                ':usuario_id' => $_SESSION['admin_id']
+                ':usuario_id' => $usuario_id
             ]);
 
             header("Location: listar.php?exito=1");

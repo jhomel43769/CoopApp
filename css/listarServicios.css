@@ -1,0 +1,361 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  
+  /* Contenedor general */
+  .contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  /* HEADER */
+  .admin-header {
+    background-color: #083c5f;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-header .contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  
+  .admin-title {
+    margin: 0;
+    font-size: 1.8rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .admin-title i {
+    color: #4caf50;
+  }
+  
+  .admin-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+  }
+  
+  .admin-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+  }
+  
+  .admin-nav a:hover {
+    color: #4caf50;
+  }
+  
+  .admin-nav a.activo {
+    color: #4caf50;
+    font-weight: bold;
+    border-bottom: 2px solid #4caf50;
+  }
+  
+  /* MAIN */
+  .admin-container {
+    flex: 1;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  /* Admin Actions */
+  .admin-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Botones */
+  .btn {
+    background-color: #00695c;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #004d40;
+  }
+  
+  .btn i {
+    font-size: 1rem;
+  }
+  
+  .btn.secondary {
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  /* Buscador */
+  .search-form {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .search-form input[type="text"] {
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 250px;
+    font-size: 0.95rem;
+  }
+  
+  .search-form button {
+    background-color: #00695c;
+    color: white;
+    border: none;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-form button:hover {
+    background-color: #004d40;
+  }
+  
+  /* Mensajes */
+  .error-message, .error, .exito {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 6px;
+  }
+  
+  .error-message, .error {
+    background-color: #ffe6e6;
+    color: #a00;
+    border-left: 5px solid #c0392b;
+  }
+  
+  .exito {
+    background-color: #e6ffed;
+    color: #155724;
+    border-left: 5px solid #00695c;
+  }
+  
+  /* Tabla */
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  
+  .admin-table th, 
+  .admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .admin-table th {
+    background-color: #34495e;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .admin-table tbody tr:hover {
+    background-color: #f5f8fa;
+  }
+  
+  /* Paginación */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  
+  .pagination a,
+  .pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.8rem;
+    background-color: white;
+    color: #2c3e50;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pagination a:hover {
+    background-color: #f1f3f5;
+  }
+  
+  .pagination span.current,
+  .pagination a.current {
+    background-color: #00695c;
+    color: white;
+  }
+  
+  /* FOOTER */
+  .admin-footer {
+    background-color: #083c5f;
+    color: #f0f2f5;
+    padding: 0.8rem 0;
+    margin-top: auto;
+    font-size: 0.9rem;
+  }
+  
+  .admin-footer p {
+    margin: 0.5rem 0;
+  }
+  
+  .admin-footer i {
+    color: #4caf50;
+    margin-right: 5px;
+  }
+  
+  /* Mantener compatibilidad con clases antiguas */
+  .table-responsive {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  th {
+    background-color: #34495e;
+    color: white;
+    font-weight: 600;
+  }
+  
+  tbody tr:hover {
+    background-color: #f5f8fa;
+  }
+  
+  .acciones {
+    white-space: nowrap;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .boton-editar, .boton-eliminar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .boton-editar {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .boton-editar:hover {
+    background-color: #2980b9;
+  }
+  
+  .boton-eliminar {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .boton-eliminar:hover {
+    background-color: #c0392b;
+  }
+  
+  .paginacion {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  
+  .paginacion a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.8rem;
+    background-color: white;
+    color: #2c3e50;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .paginacion a:hover {
+    background-color: #f1f3f5;
+  }
+  
+  .paginacion .actual {
+    background-color: #00695c;
+    color: white;
+  }
+  

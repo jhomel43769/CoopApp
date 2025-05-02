@@ -47,8 +47,8 @@ try {
 } catch (PDOException $e) {
     $error = "Error al cargar servicios: " . $e->getMessage();
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -58,24 +58,36 @@ try {
     <title>Gestión de Servicios - COOPMAIMÓN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/G-styles.css">
-    <link rel="stylesheet" href="../../css/adminPanel.css">
+    <link rel="stylesheet" href="../../css/listarServicios.css">
 </head>
 
 <body>
-    <div class="contenedor">
-        <h1><i class="fas fa-concierge-bell"></i> Gestión de Servicios</h1>
+    <header class="admin-header">
+        <div class="contenedor">
+            <h1 class="admin-title"><i class="fas fa-concierge-bell"></i> Servicios</h1>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="../../admin/panel.php"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="../noticias/listar.php"><i class="fas fa-newspaper"></i> Noticias</a></li>
+                    <li><a href="listar.php" class="activo"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
+                    <li><a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <div class="acciones-superiores">
-            <a href="crear.php" class="boton"><i class="fas fa-plus"></i> Nuevo Servicio</a>
-            <form method="get" class="buscador">
+    <main class="admin-container">
+        <div class="admin-actions">
+            <a href="crear.php" class="btn"><i class="fas fa-plus"></i> Nuevo Servicio</a>
+            <form method="get" class="search-form">
                 <input type="text" name="busqueda" placeholder="Buscar servicios..."
                     value="<?= htmlspecialchars($busqueda) ?>">
-                <button type="submit"><i class="fas fa-search"></i> Buscar</button>
+                <button type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
 
         <?php if (isset($error)): ?>
-            <div class="error"><?= $error ?></div>
+            <div class="error-message"><?= $error ?></div>
         <?php endif; ?>
 
         <?php if (isset($_GET['exito'])): ?>
@@ -96,40 +108,38 @@ try {
             </div>
         <?php endif; ?>
 
-        <div class="table-responsive">
-            <table>
-                <thead>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Orden</th>
+                    <th>Nombre</th>
+                    <th>Icono</th>
+                    <th>Destacado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($servicios as $servicio): ?>
                     <tr>
-                        <th>Orden</th>
-                        <th>Nombre</th>
-                        <th>Icono</th>
-                        <th>Destacado</th>
-                        <th>Acciones</th>
+                        <td><?= $servicio['orden'] ?></td>
+                        <td><?= htmlspecialchars($servicio['nombre']) ?></td>
+                        <td><i class="<?= htmlspecialchars($servicio['icono']) ?>"></i>
+                            <?= htmlspecialchars($servicio['icono']) ?></td>
+                        <td><?= $servicio['destacado'] ? 'Sí' : 'No' ?></td>
+                        <td>
+                            <a href="editar.php?id=<?= $servicio['id'] ?>" class="btn secondary" title="Editar"><i
+                                    class="fas fa-edit"></i></a>
+                            <a href="eliminar.php?id=<?= $servicio['id'] ?>" class="btn secondary" title="Eliminar"
+                                onclick="return confirm('¿Eliminar este servicio?')"><i class="fas fa-trash"></i></a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($servicios as $servicio): ?>
-                        <tr>
-                            <td><?= $servicio['orden'] ?></td>
-                            <td><?= htmlspecialchars($servicio['nombre']) ?></td>
-                            <td><i class="<?= htmlspecialchars($servicio['icono']) ?>"></i>
-                                <?= htmlspecialchars($servicio['icono']) ?></td>
-                            <td><?= $servicio['destacado'] ? 'Sí' : 'No' ?></td>
-                            <td class="acciones">
-                                <a href="editar.php?id=<?= $servicio['id'] ?>" class="boton-editar" title="Editar"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="eliminar.php?id=<?= $servicio['id'] ?>" class="boton-eliminar" title="Eliminar"
-                                    onclick="return confirm('¿Eliminar este servicio?')"><i class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
         <!-- Paginación -->
         <?php if ($totalPaginas > 1): ?>
-            <div class="paginacion">
+            <div class="pagination">
                 <?php if ($pagina > 1): ?>
                     <a href="?pagina=<?= $pagina - 1 ?>&busqueda=<?= urlencode($busqueda) ?>"><i
                             class="fas fa-chevron-left"></i></a>
@@ -140,7 +150,7 @@ try {
                 $fin = min($totalPaginas, $pagina + 2);
 
                 for ($i = $inicio; $i <= $fin; $i++): ?>
-                    <a href="?pagina=<?= $i ?>&busqueda=<?= urlencode($busqueda) ?>" <?= $i == $pagina ? 'class="activa"' : '' ?>>
+                    <a href="?pagina=<?= $i ?>&busqueda=<?= urlencode($busqueda) ?>" <?= $i == $pagina ? 'class="current"' : '' ?>>
                         <?= $i ?>
                     </a>
                 <?php endfor; ?>
@@ -151,7 +161,13 @@ try {
                 <?php endif; ?>
             </div>
         <?php endif; ?>
-    </div>
-</body>
+    </main>
 
-</html>
+    <footer class="admin-footer">
+        <div class="contenedor">
+            <p><i class="fas fa-map-marker-alt"></i> Oficina Principal: Calle Padre Fantino No. 7, Maimón, Monseñor
+                Nouel.</p>
+            <p>&copy; <?= date('Y') ?> COOPMAIMÓN</p>
+        </div>
+    </footer>
+</body>

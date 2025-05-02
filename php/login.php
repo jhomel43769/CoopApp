@@ -2,22 +2,18 @@
 session_start();
 include('../db/conexion.php');
 
-echo "DEBUG: Entró al PHP<br>";  // <-- Agrega esta línea
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST['usuario'];
     $clave = $_POST['clave'];
-
-    echo "DEBUG: Usuario recibido: $usuario<br>"; // <-- Y esta otra
-
 
     $sql = "SELECT * FROM usuarios WHERE usuario = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->execute([$usuario]);
     $usuarioEncontrado = $stmt->fetch();
 
-    if ($usuarioEncontrado && password_verify($clave, $usuarioEncontrado['clave'])) {
-        $_SESSION['admin'] = $usuario;
+    if ($usuarioEncontrado && $clave === $usuarioEncontrado['clave']) {
+        $_SESSION['admin'] = $usuarioEncontrado['usuario'];
+        $_SESSION['admin_id'] = $usuarioEncontrado['id'];
         header("Location: /CoopApp/admin/panel.php");
         exit;
     } else {

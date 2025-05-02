@@ -1,182 +1,27 @@
-  /* Estilos adicionales para el panel */
-  .dashboard-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-
-.card-header {
-    background: #2c3e50;
-    color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-header h2 {
+/* ===== RESET ===== */
+* {
     margin: 0;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.btn-small {
-    background: #3498db;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    text-decoration: none;
-    transition: background 0.3s;
+html, body {
+    height: 100%;
 }
 
-.btn-small:hover {
-    background: #2980b9;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-}
-
-.estado-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.estado-badge.publicada {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.estado-badge.borrador {
-    background-color: #fff3cd;
-    color: #856404;
-}
-
-.acciones {
-    white-space: nowrap;
-}
-
-.btn-action {
-    display: inline-block;
-    padding: 5px;
-    color: #3498db;
-    margin-right: 5px;
-}
-
-.btn-action.btn-danger {
-    color: #e74c3c;
-}
-
-.card-footer {
-    padding: 15px 20px;
-    border-top: 1px solid #eee;
-    text-align: right;
-}
-
-.btn-link {
-    color: #3498db;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.dashboard-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.stat-card {
-    background: white;
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.stat-card i {
-    font-size: 1.8rem;
-    color: #3498db;
-    margin-bottom: 10px;
-}
-
-.stat-card h3 {
-    margin: 5px 0;
-    font-size: 1.5rem;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
     color: #2c3e50;
+    line-height: 1.6;
 }
 
-.stat-card p {
-    margin: 0;
-    color: #7f8c8d;
-    font-size: 0.9rem;
-}
-
-.acciones-panel {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.boton-panel {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    background: #3498db;
-    color: white;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.boton-panel:hover {
-    background: #2980b9;
-}
-
-.boton-panel.boton-salir {
-    background: #e74c3c;
-}
-
-.boton-panel.boton-salir:hover {
-    background: #c0392b;
-}
-
-.error-msg {
-    padding: 15px;
-    background: #f8d7da;
-    color: #721c24;
-    border-radius: 4px;
-    margin: 15px;
-}
-
+/* ===== CONTENEDOR GENERAL ===== */
 .dashboard-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
@@ -189,6 +34,142 @@ th {
     }
 }
 
-.welcome-emoji {
-    font-size: 1.2em;
+/* ===== CABECERA ===== */
+.card-header {
+    background-color: #083c5f;
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+/* ===== BOTONES ===== */
+.btn-small, .boton-grande {
+    background-color: #00695c;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-small:hover, .boton-grande:hover {
+    background-color: #004d40;
+}
+
+.boton-grande {
+    font-size: 1.1rem;
+    min-width: 180px;
+}
+
+/* ===== TABLA ===== */
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+tr:hover {
+    background-color: #f5f8fa;
+}
+
+/* ===== BADGES ===== */
+.estado-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.estado-badge.publicada {
+    background-color: #e6ffed;
+    color: #155724;
+}
+
+.estado-badge.borrador {
+    background-color: #ffe6e6;
+    color: #a00;
+}
+
+/* ===== MENSAJES ===== */
+.error-msg {
+    padding: 15px;
+    background: #ffe6e6;
+    color: #a00;
+    border-left: 5px solid #c0392b;
+    border-radius: 4px;
+    margin: 15px;
+}
+
+/* ===== PAGINACIÓN ===== */
+.pagination-noticias {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.pagination-noticias a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.8rem;
+    background-color: white;
+    color: #2c3e50;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-noticias a:hover {
+    background-color: #f1f3f5;
+}
+
+.pagination-noticias a.current {
+    background-color: #00695c;
+    color: white;
 }

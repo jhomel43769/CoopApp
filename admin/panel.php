@@ -64,37 +64,45 @@ try {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="../css/G-styles.css" />
   <link rel="stylesheet" href="../css/adminPanel.css" />
+
   <style>
-    /* Estilos adicionales para los botones grandes */
-    .boton-grande {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 20px;
-      background: #3498db;
-      color: white;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: background 0.3s;
-      font-size: 1.1rem;
-      font-weight: 500;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    .boton-grande:hover {
-      background: #2980b9;
-    }
-
     .card-footer {
-      padding: 15px 20px;
-      border-top: 1px solid #eee;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 20px;
+    }
+
+    .btn-link {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .btn-link:hover {
+      color: #0056b3;
+    }
+
+    .boton-grande {
+      display: inline-block;
+      background-color: #28a745;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .boton-grande:hover {
+      background-color: #218838;
     }
   </style>
+
+
 </head>
 
 <body>

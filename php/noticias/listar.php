@@ -13,8 +13,11 @@ $porPagina = 10;
 
 $where = '';
 if (!empty($busqueda)) {
-    $where = " WHERE titulo LIKE :busqueda OR contenido LIKE :busqueda";
+    $where = " WHERE titulo LIKE :busqueda";
 }
+
+$noticias = [];
+$totalPaginas = 0;
 
 try {
     // Contar total de registros
@@ -126,32 +129,34 @@ try {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($noticias as $noticia): ?>
+                <?php if (empty($noticias)): ?>
                     <tr>
-                        <td><?= htmlspecialchars($noticia['titulo']) ?></td>
-                        <td>
-                            <?php
-                            if (!empty($noticia['fecha_publicacion'])) {
-                                echo date('d/m/Y', strtotime($noticia['fecha_publicacion']));
-                            } else {
-                                echo 'Sin fecha';
-                            }
-                            ?>
-                        </td>
-                        <td><?= $noticia['estado'] == 'publicada' ? 'Publicada' : 'Borrador' ?></td>
-                        <td>
-                            <div class="acciones-noticia">
-                                <a href="editar.php?id=<?= $noticia['id'] ?>" class="btn-action btn-edit" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="eliminar.php?id=<?= $noticia['id'] ?>" class="btn-action btn-delete"
-                                    title="Eliminar" onclick="return confirm('¿Eliminar esta noticia?')">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </div>
+                        <td colspan="4" style="text-align:center;" class="alert alert-warning">
+                            <i class="fas fa-info-circle"></i> No se encontraron noticias con ese título.
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php else: ?>
+                    <?php foreach ($noticias as $noticia): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($noticia['titulo']) ?></td>
+                            <td>
+                                <?= !empty($noticia['fecha_publicacion']) ? date('d/m/Y', strtotime($noticia['fecha_publicacion'])) : 'Sin fecha' ?>
+                            </td>
+                            <td><?= $noticia['estado'] == 'publicada' ? 'Publicada' : 'Borrador' ?></td>
+                            <td>
+                                <div class="acciones-noticia">
+                                    <a href="editar.php?id=<?= $noticia['id'] ?>" class="btn-action btn-edit" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="eliminar.php?id=<?= $noticia['id'] ?>" class="btn-action btn-delete"
+                                        title="Eliminar" onclick="return confirm('¿Eliminar esta noticia?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
 

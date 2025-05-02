@@ -12,18 +12,19 @@ $pagina = $_GET['pagina'] ?? 1;
 $porPagina = 10;
 
 $where = '';
+$params = []; // Array para almacenar los parámetros de la consulta
+
+// Construir la parte WHERE si hay una búsqueda
 if (!empty($busqueda)) {
-    $where = " WHERE nombre LIKE :busqueda OR descripcion LIKE :busqueda";
+    $where = " WHERE nombre LIKE :busqueda";
+    $params[':busqueda'] = "%$busqueda%"; // Agregar el parámetro de búsqueda
 }
 
 try {
     // Contar total de registros
     $sqlCount = "SELECT COUNT(*) as total FROM servicios $where";
     $stmtCount = $conexion->prepare($sqlCount);
-    if (!empty($busqueda)) {
-        $stmtCount->bindValue(':busqueda', "%$busqueda%");
-    }
-    $stmtCount->execute();
+    $stmtCount->execute($params); // Ejecutar la consulta con los parámetros
     $totalServicios = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
     $totalPaginas = ceil($totalServicios / $porPagina);
 
@@ -33,22 +34,31 @@ try {
             ORDER BY orden ASC, nombre ASC
             LIMIT :offset, :limit";
 
-    $stmt = $conexion->prepare($sql);
-    $offset = ($pagina - 1) * $porPagina;
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-    $stmt->bindValue(':limit', $porPagina, PDO::PARAM_INT);
+    // Agregar parámetros para LIMIT y OFFSET
+    $params[':offset'] = ($pagina - 1) * $porPagina;
+    $params[':limit'] = $porPagina;
 
-    if (!empty($busqueda)) {
-        $stmt->bindValue(':busqueda', "%$busqueda%");
+    $stmt = $conexion->prepare($sql);
+
+    // Especificar el tipo de parámetro para LIMIT y OFFSET
+    $stmt->bindParam(':offset', $params[':offset'], PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $params[':limit'], PDO::PARAM_INT);
+
+    $stmt->execute($params); // Ejecutar la consulta con los parámetros
+    $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Verificar si no hay resultados
+    if (empty($servicios) && !empty($busqueda)) {
+        $error = "No se han encontrado servicios que coincidan con la búsqueda.";
     }
 
-    $stmt->execute();
-    $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $error = "Error al cargar servicios: " . $e->getMessage();
+    $servicios = []; // Asegurar que $servicios esté definido aunque haya un error
+    $totalPaginas = 0; // Asegurar que $totalPaginas también se defina
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -86,7 +96,7 @@ try {
             </form>
         </div>
 
-        <?php if (isset($error)): ?>
+        <?php if (isset($error) && $error): ?>
             <div class="error-message"><?= $error ?></div>
         <?php endif; ?>
 
@@ -119,21 +129,27 @@ try {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($servicios as $servicio): ?>
+                <?php if (!empty($servicios)): ?>
+                    <?php foreach ($servicios as $servicio): ?>
+                        <tr>
+                            <td><?= $servicio['orden'] ?></td>
+                            <td><?= htmlspecialchars($servicio['nombre']) ?></td>
+                            <td><i class="<?= htmlspecialchars($servicio['icono']) ?>"></i>
+                                <?= htmlspecialchars($servicio['icono']) ?></td>
+                            <td><?= $servicio['destacado'] ? 'Sí' : 'No' ?></td>
+                            <td>
+                                <a href="editar.php?id=<?= $servicio['id'] ?>" class="btn secondary" title="Editar"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="eliminar.php?id=<?= $servicio['id'] ?>" class="btn secondary" title="Eliminar"
+                                    onclick="return confirm('¿Eliminar este servicio?')"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td><?= $servicio['orden'] ?></td>
-                        <td><?= htmlspecialchars($servicio['nombre']) ?></td>
-                        <td><i class="<?= htmlspecialchars($servicio['icono']) ?>"></i>
-                            <?= htmlspecialchars($servicio['icono']) ?></td>
-                        <td><?= $servicio['destacado'] ? 'Sí' : 'No' ?></td>
-                        <td>
-                            <a href="editar.php?id=<?= $servicio['id'] ?>" class="btn secondary" title="Editar"><i
-                                    class="fas fa-edit"></i></a>
-                            <a href="eliminar.php?id=<?= $servicio['id'] ?>" class="btn secondary" title="Eliminar"
-                                onclick="return confirm('¿Eliminar este servicio?')"><i class="fas fa-trash"></i></a>
-                        </td>
+                        <td colspan="5">No se encontraron servicios.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
 
@@ -171,3 +187,5 @@ try {
         </div>
     </footer>
 </body>
+
+</html>

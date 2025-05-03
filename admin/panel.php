@@ -46,7 +46,6 @@ try {
   $errorServicios = "Error al cargar servicios: " . $e->getMessage();
 }
 
-// Contar total de registros
 try {
   $totalNoticias = $conexion->query("SELECT COUNT(*) FROM noticias")->fetchColumn();
   $totalServicios = $conexion->query("SELECT COUNT(*) FROM servicios")->fetchColumn();
@@ -63,106 +62,7 @@ try {
   <title>Panel de Administración - COOPMAIMÓN</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="../css/G-styles.css" />
-  <link rel="stylesheet" href="../css/adminPanel.css" />
-
-  <style>
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-    }
-
-    .btn-link {
-      color: #007bff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    .btn-link:hover {
-      color: #0056b3;
-    }
-
-    .boton-grande {
-      display: inline-block;
-      background-color: #28a745;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 14px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .boton-grande:hover {
-      background-color: #218838;
-    }
-
-    .bienvenida {
-      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .bienvenida h2 {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .bienvenida p {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .dashboard-stats {
-      display: flex;
-      justify-content: space-around;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .stat-card {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 15px;
-      text-align: center;
-      flex: 1;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .stat-card i {
-      font-size: 30px;
-      color: #007bff;
-      margin-bottom: 10px;
-    }
-
-    .stat-card h3 {
-      font-size: 22px;
-      color: #333;
-      margin: 0;
-    }
-
-    .stat-card p {
-      font-size: 14px;
-      color: #777;
-      margin: 5px 0 0;
-    }
-  </style>
-
-
+  <link rel="stylesheet" href="../css/AdminPanel.css" />
 </head>
 
 <body>
@@ -199,7 +99,6 @@ try {
     </section>
 
     <div class="dashboard-grid contenedor">
-      <!-- Sección de Noticias -->
       <section class="dashboard-card">
         <div class="card-header">
           <h2><i class="fas fa-newspaper"></i> Últimas Noticias</h2>
@@ -229,7 +128,7 @@ try {
                         class="estado-badge <?php echo $noticia['estado']; ?>"><?php echo ucfirst($noticia['estado']); ?></span>
                     </td>
                     <td class="acciones">
-                      <a href="../php/noticias/editar.php?id=<?php echo $noticia['id']; ?>" class="btn-action"
+                      <a href="../php/noticias/editar.php?id=<?php echo $noticia['id']; ?>&origen=panel" class="btn-action"
                         title="Editar"><i class="fas fa-edit"></i></a>
                       <a href="../php/noticias/eliminar.php?id=<?php echo $noticia['id']; ?>" class="btn-action btn-danger"
                         title="Eliminar" onclick="return confirm('¿Eliminar esta noticia?')"><i
@@ -248,7 +147,6 @@ try {
         <?php endif; ?>
       </section>
 
-      <!-- Sección de Servicios -->
       <section class="dashboard-card">
         <div class="card-header">
           <h2><i class="fas fa-concierge-bell"></i> Servicios Recientes</h2>
@@ -276,8 +174,8 @@ try {
                     <td><i class="<?php echo htmlspecialchars($servicio['icono']); ?>"></i></td>
                     <td><?php echo $servicio['destacado']; ?></td>
                     <td class="acciones">
-                      <a href="../php/servicios/editar.php?id=<?php echo $servicio['id']; ?>" class="btn-action"
-                        title="Editar"><i class="fas fa-edit"></i></a>
+                      <a href="../php/servicios/editar.php?id=<?php echo $servicio['id']; ?>&origen=panel"
+                        class="btn-action" title="Editar"><i class="fas fa-edit"></i></a>
                       <a href="../php/servicios/eliminar.php?id=<?php echo $servicio['id']; ?>"
                         class="btn-action btn-danger" title="Eliminar"
                         onclick="return confirm('¿Eliminar este servicio?')"><i class="fas fa-trash"></i></a>

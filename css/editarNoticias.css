@@ -1,14 +1,13 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     margin: 0;
-    padding: 0; /* Elimina el padding para centrar correctamente */
+    padding: 0;
     color: #333;
-    display: flex; /* Flexbox para centrar */
-    justify-content: center; /* Centrado horizontal */
-    align-items: center; /* Centrado vertical */
-    height: 100vh; /* Altura completa de la ventana */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
 }
 
 /* Container styling */
@@ -131,7 +130,6 @@ textarea.crud-form-control {
     min-height: 100px;
 }
 
-/* Checkbox styling */
 .crud-checkbox {
     display: flex;
     align-items: center;
@@ -148,7 +146,6 @@ textarea.crud-form-control {
     font-weight: normal;
 }
 
-/* Image preview styling */
 .crud-image-preview {
     max-width: 100%;
     height: auto;
@@ -157,7 +154,6 @@ textarea.crud-form-control {
     margin-top: 10px;
 }
 
-/* Helper text */
 .crud-help-text {
     font-size: 12px;
     color: #666;
@@ -173,7 +169,6 @@ textarea.crud-form-control {
     text-decoration: underline;
 }
 
-/* Icon styling */
 .crud-icon {
     font-size: 18px;
 }

@@ -15,7 +15,6 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 try {
-    // Eliminar servicio
     $stmt = $conexion->prepare("DELETE FROM servicios WHERE id = :id");
     $stmt->execute([':id' => $id]);
 

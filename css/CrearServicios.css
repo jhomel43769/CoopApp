@@ -99,7 +99,6 @@ textarea {
     width: auto;
 }
 
-/* Submit Button */
 .boton {
     background-color: #00695c;
     color: white;
@@ -118,7 +117,6 @@ textarea {
     transform: translateY(-2px);
 }
 
-/* Footer Styles */
 .noticia-crear-footer {
     background-color: #083c5f;
     color: #fff;

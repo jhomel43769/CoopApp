@@ -16,7 +16,6 @@ $id = $_GET['id'];
 $errores = [];
 $servicio = null;
 
-// Obtener servicio actual
 try {
     $stmt = $conexion->prepare("SELECT * FROM servicios WHERE id = :id");
     $stmt->execute([':id' => $id]);
@@ -76,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    // Rellenar formulario con datos actuales
     $nombre = $servicio['nombre'];
     $descripcion = $servicio['descripcion'];
     $icono = $servicio['icono'];

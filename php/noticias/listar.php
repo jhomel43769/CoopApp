@@ -20,7 +20,6 @@ $noticias = [];
 $totalPaginas = 0;
 
 try {
-    // Contar total de registros
     $sqlCount = "SELECT COUNT(*) as total FROM noticias $where";
     $stmtCount = $conexion->prepare($sqlCount);
     if (!empty($busqueda)) {
@@ -30,7 +29,6 @@ try {
     $totalNoticias = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
     $totalPaginas = ceil($totalNoticias / $porPagina);
 
-    // Obtener noticias
     $sql = "SELECT id, titulo, fecha_publicacion, estado 
             FROM noticias $where 
             ORDER BY fecha_publicacion DESC 
@@ -79,7 +77,6 @@ try {
     </header>
 
     <main class="admin-container">
-        <!-- Barra de acciones -->
         <div class="noticias-actions">
             <a href="crear.php" class="btn-noticia btn-primary">
                 <i class="fas fa-plus"></i> Nueva Noticia
@@ -92,7 +89,6 @@ try {
             </form>
         </div>
 
-        <!-- Mensajes -->
         <?php if (isset($error)): ?>
             <div class="alert alert-error">
                 <i class="fas fa-exclamation-circle"></i> <?= $error ?>
@@ -118,7 +114,6 @@ try {
             </div>
         <?php endif; ?>
 
-        <!-- Tabla -->
         <table class="table-noticias">
             <thead>
                 <tr>
@@ -145,7 +140,8 @@ try {
                             <td><?= $noticia['estado'] == 'publicada' ? 'Publicada' : 'Borrador' ?></td>
                             <td>
                                 <div class="acciones-noticia">
-                                    <a href="editar.php?id=<?= $noticia['id'] ?>" class="btn-action btn-edit" title="Editar">
+                                    <a href="editar.php?id=<?= $noticia['id'] ?>&origen=listar" class="btn-action btn-edit"
+                                        title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="eliminar.php?id=<?= $noticia['id'] ?>" class="btn-action btn-delete"
@@ -160,7 +156,6 @@ try {
             </tbody>
         </table>
 
-        <!-- Paginación -->
         <?php if ($totalPaginas > 1): ?>
             <div class="pagination-noticias">
                 <?php if ($pagina > 1): ?>

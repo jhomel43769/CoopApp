@@ -26,7 +26,6 @@ try {
         }
     }
 
-    // Eliminar noticia
     $stmt = $conexion->prepare("DELETE FROM noticias WHERE id = :id");
     $stmt->execute([':id' => $id]);
 

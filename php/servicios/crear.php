@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $destacado = isset($_POST['destacado']) ? 1 : 0;
     $orden = intval($_POST['orden']);
 
-    // Validaciones
     if (empty($nombre)) {
         $errores[] = 'El nombre es obligatorio';
     }

@@ -16,7 +16,6 @@ $id = $_GET['id'];
 $errores = [];
 $noticia = null;
 
-// Obtener noticia actual
 try {
     $stmt = $conexion->prepare("SELECT * FROM noticias WHERE id = :id");
     $stmt->execute([':id' => $id]);
@@ -37,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagen = $_FILES['imagen'] ?? null;
     $eliminarImagen = isset($_POST['eliminar_imagen']);
 
-    // Validaciones
     if (empty($titulo)) {
         $errores[] = 'El título es obligatorio';
     }
@@ -50,32 +48,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'Estado no válido';
     }
 
-    // Procesar imagen
     $nombreImagen = $noticia['imagen_url'];
     if ($eliminarImagen && $nombreImagen) {
-        // Eliminar archivo físico
         $rutaImagen = "../../uploads/{$nombreImagen}";
         if (file_exists($rutaImagen)) {
             unlink($rutaImagen);
         }
         $nombreImagen = null;
     } elseif ($imagen && $imagen['error'] === UPLOAD_ERR_OK) {
-        // Validar tipo de imagen
         $extension = strtolower(pathinfo($imagen['name'], PATHINFO_EXTENSION));
         $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
 
         if (!in_array($extension, $extensionesPermitidas)) {
             $errores[] = 'Formato de imagen no válido. Use JPG, PNG o GIF';
         } else {
-            // Eliminar imagen anterior si existe
             if ($nombreImagen) {
                 $rutaAnterior = "../../uploads/{$nombreImagen}";
                 if (file_exists($rutaAnterior)) {
                     unlink($rutaAnterior);
                 }
             }
-
-            // Subir nueva imagen
             $nombreImagen = uniqid() . '.' . $extension;
             $rutaDestino = "../../uploads/{$nombreImagen}";
 
@@ -88,12 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errores)) {
         try {
             $sql = "UPDATE noticias 
-                    SET titulo = :titulo, 
-                        contenido = :contenido, 
-                        estado = :estado, 
-                        imagen_url = :imagen_url,
-                        fecha_publicacion = CASE WHEN :nuevo_estado = 'publicada' AND estado = 'borrador' THEN NOW() ELSE fecha_publicacion END
-                    WHERE id = :id";
+                        SET titulo = :titulo, 
+                            contenido = :contenido, 
+                            estado = :estado, 
+                            imagen_url = :imagen_url,
+                            fecha_publicacion = CASE WHEN :nuevo_estado = 'publicada' AND estado = 'borrador' THEN NOW() ELSE fecha_publicacion END
+                        WHERE id = :id";
 
             $stmt = $conexion->prepare($sql);
             $stmt->execute([
@@ -112,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    // Rellenar formulario con datos actuales
     $titulo = $noticia['titulo'];
     $contenido = $noticia['contenido'];
     $estado = $noticia['estado'];
@@ -192,7 +183,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <script>
-        // Validación básica del formulario
         document.querySelector('form').addEventListener('submit', function (e) {
             const titulo = document.querySelector('[name="titulo"]').value.trim();
             const contenido = document.querySelector('[name="contenido"]').value.trim();

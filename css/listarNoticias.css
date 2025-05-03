@@ -1,4 +1,3 @@
-/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +15,6 @@ body {
   line-height: 1.6;
 }
 
-/* ===== CONTENEDOR GENERAL ===== */
 .admin-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -24,7 +22,6 @@ body {
   width: 100%;
 }
 
-/* ===== CABECERA ===== */
 .noticias-header {
   background-color: #083c5f;
   color: white;
@@ -45,7 +42,6 @@ body {
   color: #4caf50;
 }
 
-/* ===== BARRA DE ACCIONES ===== */
 .noticias-actions {
   display: flex;
   justify-content: space-between;
@@ -74,7 +70,6 @@ body {
   background-color: #004d40;
 }
 
-/* ===== FORMULARIO DE BÚSQUEDA ===== */
 .search-form {
   display: flex;
   gap: 0.5rem;
@@ -106,7 +101,6 @@ body {
   background-color: #004d40;
 }
 
-/* ===== TABLA ===== */
 .table-noticias {
   width: 100%;
   border-collapse: collapse;
@@ -135,7 +129,6 @@ body {
   background-color: #f5f8fa;
 }
 
-/* ===== BOTONES DE ACCIÓN ===== */
 .acciones-noticia {
   display: flex;
   gap: 0.5rem;
@@ -168,7 +161,6 @@ body {
   background-color: #c0392b;
 }
 
-/* ===== PAGINACIÓN ===== */
 .pagination-noticias {
   display: flex;
   justify-content: center;
@@ -201,7 +193,6 @@ body {
   color: white;
 }
 
-/* ===== MENSAJES ===== */
 .alert-success {
   background-color: #e6ffed;
   color: #155724;

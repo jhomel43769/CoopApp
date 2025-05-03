@@ -11,10 +11,8 @@ $errores = [];
 $titulo = $contenido = $estado = '';
 $admin_username = $_SESSION['admin'];
 
-// Configuración de uploads
 $uploadDir = __DIR__ . '/../../uploads/';
 
-// Crear directorio si no existe
 if (!file_exists($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
@@ -25,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $estado = $_POST['estado'];
     $imagen = $_FILES['imagen'] ?? null;
 
-    // Validaciones
     if (empty($titulo)) {
         $errores[] = 'El título es obligatorio';
     }
@@ -38,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'Estado no válido';
     }
 
-    // Obtener ID del usuario
     try {
         $sql = "SELECT id FROM usuarios WHERE usuario = :admin_username";
         $stmt = $conexion->prepare($sql);
@@ -54,17 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "Error al verificar el usuario: " . $e->getMessage();
     }
 
-    // Procesar imagen
     $nombreImagen = null;
     if ($imagen && $imagen['error'] === UPLOAD_ERR_OK) {
-        // Validar tipo de archivo
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         $fileType = mime_content_type($imagen['tmp_name']);
 
         if (!in_array($fileType, $allowedTypes)) {
             $errores[] = 'Solo se permiten imágenes JPG, PNG o GIF';
         } else {
-            // Validar tamaño (máximo 2MB)
             if ($imagen['size'] > 2 * 1024 * 1024) {
                 $errores[] = 'La imagen no debe superar 2MB';
             } else {
@@ -79,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } elseif ($imagen && $imagen['error'] !== UPLOAD_ERR_NO_FILE) {
-        // Manejar otros errores de subida
         switch ($imagen['error']) {
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
@@ -93,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Si no hay errores, insertar la noticia
     if (empty($errores)) {
         try {
             $sql = "INSERT INTO noticias (titulo, contenido, fecha_publicacion, estado, imagen_url, usuario_id) 

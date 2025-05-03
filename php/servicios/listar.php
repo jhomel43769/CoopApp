@@ -12,50 +12,44 @@ $pagina = $_GET['pagina'] ?? 1;
 $porPagina = 10;
 
 $where = '';
-$params = []; // Array para almacenar los parámetros de la consulta
+$params = [];
 
-// Construir la parte WHERE si hay una búsqueda
 if (!empty($busqueda)) {
     $where = " WHERE nombre LIKE :busqueda";
-    $params[':busqueda'] = "%$busqueda%"; // Agregar el parámetro de búsqueda
+    $params[':busqueda'] = "%$busqueda%";
 }
 
 try {
-    // Contar total de registros
     $sqlCount = "SELECT COUNT(*) as total FROM servicios $where";
     $stmtCount = $conexion->prepare($sqlCount);
-    $stmtCount->execute($params); // Ejecutar la consulta con los parámetros
+    $stmtCount->execute($params);
     $totalServicios = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
     $totalPaginas = ceil($totalServicios / $porPagina);
 
-    // Obtener servicios
     $sql = "SELECT id, nombre, descripcion, icono, url, destacado, orden 
             FROM servicios $where 
             ORDER BY orden ASC, nombre ASC
             LIMIT :offset, :limit";
 
-    // Agregar parámetros para LIMIT y OFFSET
     $params[':offset'] = ($pagina - 1) * $porPagina;
     $params[':limit'] = $porPagina;
 
     $stmt = $conexion->prepare($sql);
 
-    // Especificar el tipo de parámetro para LIMIT y OFFSET
     $stmt->bindParam(':offset', $params[':offset'], PDO::PARAM_INT);
     $stmt->bindParam(':limit', $params[':limit'], PDO::PARAM_INT);
 
-    $stmt->execute($params); // Ejecutar la consulta con los parámetros
+    $stmt->execute($params);
     $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Verificar si no hay resultados
     if (empty($servicios) && !empty($busqueda)) {
         $error = "No se han encontrado servicios que coincidan con la búsqueda.";
     }
 
 } catch (PDOException $e) {
     $error = "Error al cargar servicios: " . $e->getMessage();
-    $servicios = []; // Asegurar que $servicios esté definido aunque haya un error
-    $totalPaginas = 0; // Asegurar que $totalPaginas también se defina
+    $servicios = [];
+    $totalPaginas = 0;
 }
 ?>
 
@@ -153,7 +147,6 @@ try {
             </tbody>
         </table>
 
-        <!-- Paginación -->
         <?php if ($totalPaginas > 1): ?>
             <div class="pagination">
                 <?php if ($pagina > 1): ?>

@@ -171,7 +171,14 @@ try {
                   <tr>
                     <td><?php echo htmlspecialchars($servicio['nombre']); ?></td>
                     <td><?php echo htmlspecialchars($servicio['resumen']); ?>...</td>
-                    <td><i class="<?php echo htmlspecialchars($servicio['icono']); ?>"></i></td>
+                    <td>
+                      <?php if (!empty($servicio['icono'])): ?>
+                        <img src="../uploads/icon/<?php echo htmlspecialchars($servicio['icono']); ?>" alt="Icono"
+                          style="width:32px;height:32px;">
+                      <?php else: ?>
+                        <span style="color:#888;">Sin icono</span>
+                      <?php endif; ?>
+                    </td>
                     <td><?php echo $servicio['destacado']; ?></td>
                     <td class="acciones">
                       <a href="../php/servicios/editar.php?id=<?php echo $servicio['id']; ?>&origen=panel"

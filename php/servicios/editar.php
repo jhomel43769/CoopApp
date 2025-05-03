@@ -35,21 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $url = trim($_POST['url']);
     $destacado = isset($_POST['destacado']) ? 1 : 0;
     $orden = intval($_POST['orden']);
-    $icono = $servicio['icono']; // Valor actual por defecto
+    $icono = $servicio['icono'];
 
-    // Manejo de imagen de icono (el campo en la BD es 'icono')
     if (isset($_FILES['icono']) && $_FILES['icono']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['icono']['name'], PATHINFO_EXTENSION);
         $nuevoIcono = uniqid('icono_') . '.' . $ext;
         $rutaDestino = '../../uploads/icon/' . $nuevoIcono;
 
-        // Crear la carpeta si no existe
         if (!is_dir('../../uploads/icon')) {
             mkdir('../../uploads/icon', 0777, true);
         }
 
         if (move_uploaded_file($_FILES['icono']['tmp_name'], $rutaDestino)) {
-            // Eliminar el icono anterior si existe
             if (!empty($icono) && file_exists('../../uploads/icon/' . $icono)) {
                 unlink('../../uploads/icon/' . $icono);
             }
@@ -59,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Validaciones
     if (empty($nombre)) {
         $errores[] = 'El nombre es obligatorio';
     }

@@ -130,7 +130,8 @@ try {
                             <td><?= htmlspecialchars($servicio['nombre']) ?></td>
                             <td>
                                 <?php if (!empty($servicio['icono'])): ?>
-                                    <img src="../../uploads/icon/<?= htmlspecialchars($servicio['icono']) ?>" alt="Icono" style="width:32px;height:32px;">
+                                    <img src="../../uploads/icon/<?= htmlspecialchars($servicio['icono']) ?>" alt="Icono"
+                                        style="width:32px;height:32px;">
                                 <?php else: ?>
                                     <span style="color:#888;">Sin icono</span>
                                 <?php endif; ?>

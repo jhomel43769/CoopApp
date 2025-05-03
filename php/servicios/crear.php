@@ -19,13 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $destacado = isset($_POST['destacado']) ? 1 : 0;
     $orden = intval($_POST['orden']);
 
-    // Manejo de imagen de icono (el campo en la BD es 'icono')
     if (isset($_FILES['icono']) && $_FILES['icono']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['icono']['name'], PATHINFO_EXTENSION);
         $icono = uniqid('icono_') . '.' . $ext;
         $rutaDestino = '../../uploads/icon/' . $icono;
 
-        // Crear la carpeta si no existe
         if (!is_dir('../../uploads/icon')) {
             mkdir('../../uploads/icon', 0777, true);
         }
@@ -79,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../ccs/G-styles.css">
     <link rel="stylesheet" href="../../css/CrearServicios.css">
-
 </head>
 
 <body>
@@ -134,7 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="boton"><i class="fas fa-save"></i> Guardar Servicio</button>
         </form>
     </div>
-
 </body>
 
 </html>

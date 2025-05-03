@@ -32,10 +32,32 @@ try {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre']);
     $descripcion = trim($_POST['descripcion']);
-    $icono = trim($_POST['icono']);
     $url = trim($_POST['url']);
     $destacado = isset($_POST['destacado']) ? 1 : 0;
     $orden = intval($_POST['orden']);
+    $icono = $servicio['icono']; // Valor actual por defecto
+
+    // Manejo de imagen de icono (el campo en la BD es 'icono')
+    if (isset($_FILES['icono']) && $_FILES['icono']['error'] === UPLOAD_ERR_OK) {
+        $ext = pathinfo($_FILES['icono']['name'], PATHINFO_EXTENSION);
+        $nuevoIcono = uniqid('icono_') . '.' . $ext;
+        $rutaDestino = '../../uploads/icon/' . $nuevoIcono;
+
+        // Crear la carpeta si no existe
+        if (!is_dir('../../uploads/icon')) {
+            mkdir('../../uploads/icon', 0777, true);
+        }
+
+        if (move_uploaded_file($_FILES['icono']['tmp_name'], $rutaDestino)) {
+            // Eliminar el icono anterior si existe
+            if (!empty($icono) && file_exists('../../uploads/icon/' . $icono)) {
+                unlink('../../uploads/icon/' . $icono);
+            }
+            $icono = $nuevoIcono;
+        } else {
+            $errores[] = 'Error al subir la nueva imagen del icono.';
+        }
+    }
 
     // Validaciones
     if (empty($nombre)) {
@@ -112,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
 
-        <form method="post" class="formulario">
+        <form method="post" class="formulario" enctype="multipart/form-data">
             <div class="campo">
                 <label for="nombre">Nombre del servicio:*</label>
                 <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($nombre) ?>" required>
@@ -123,7 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <textarea id="descripcion" name="descripcion" rows="5"
                     required><?= htmlspecialchars($descripcion) ?></textarea>
             </div>
-
 
             <div class="campo">
                 <label for="url">URL (opcional):</label>
@@ -139,6 +160,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="campo">
                 <label for="orden">Orden de visualización:</label>
                 <input type="number" id="orden" name="orden" value="<?= $orden ?>" min="0">
+            </div>
+
+            <div class="campo">
+                <label for="icono">Icono del servicio (imagen):</label>
+                <input type="file" id="icono" name="icono" accept="image/*">
             </div>
 
             <button type="submit" class="boton"><i class="fas fa-save"></i> Guardar Cambios</button>

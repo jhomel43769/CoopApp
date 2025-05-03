@@ -8,16 +8,34 @@ if (!isset($_SESSION['admin'])) {
 }
 
 $errores = [];
-$nombre = $descripcion = $icono = $url = '';
+$nombre = $descripcion = $url = '';
 $destacado = $orden = 0;
+$icono = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre']);
     $descripcion = trim($_POST['descripcion']);
-    $icono = trim($_POST['icono']);
     $url = trim($_POST['url']);
     $destacado = isset($_POST['destacado']) ? 1 : 0;
     $orden = intval($_POST['orden']);
+
+    // Manejo de imagen de icono (el campo en la BD es 'icono')
+    if (isset($_FILES['icono']) && $_FILES['icono']['error'] === UPLOAD_ERR_OK) {
+        $ext = pathinfo($_FILES['icono']['name'], PATHINFO_EXTENSION);
+        $icono = uniqid('icono_') . '.' . $ext;
+        $rutaDestino = '../../uploads/icon/' . $icono;
+
+        // Crear la carpeta si no existe
+        if (!is_dir('../../uploads/icon')) {
+            mkdir('../../uploads/icon', 0777, true);
+        }
+
+        if (!move_uploaded_file($_FILES['icono']['tmp_name'], $rutaDestino)) {
+            $errores[] = 'Error al subir la imagen del icono.';
+        }
+    } else {
+        $errores[] = 'Debes subir una imagen para el icono.';
+    }
 
     if (empty($nombre)) {
         $errores[] = 'El nombre es obligatorio';
@@ -80,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
 
-        <form method="post" class="formulario">
+        <form method="post" class="formulario" enctype="multipart/form-data">
             <div class="campo">
                 <label for="nombre">Nombre del servicio:*</label>
                 <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($nombre) ?>" required>
@@ -106,6 +124,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="campo">
                 <label for="orden">Orden de visualización:</label>
                 <input type="number" id="orden" name="orden" value="<?= $orden ?>" min="0">
+            </div>
+
+            <div class="campo">
+                <label for="icono">Icono (sube una imagen):*</label>
+                <input type="file" id="icono" name="icono" accept="image/*" required>
             </div>
 
             <button type="submit" class="boton"><i class="fas fa-save"></i> Guardar Servicio</button>

@@ -128,8 +128,13 @@ try {
                         <tr>
                             <td><?= $servicio['orden'] ?></td>
                             <td><?= htmlspecialchars($servicio['nombre']) ?></td>
-                            <td><i class="<?= htmlspecialchars($servicio['icono']) ?>"></i>
-                                <?= htmlspecialchars($servicio['icono']) ?></td>
+                            <td>
+                                <?php if (!empty($servicio['icono'])): ?>
+                                    <img src="../../uploads/icon/<?= htmlspecialchars($servicio['icono']) ?>" alt="Icono" style="width:32px;height:32px;">
+                                <?php else: ?>
+                                    <span style="color:#888;">Sin icono</span>
+                                <?php endif; ?>
+                            </td>
                             <td><?= $servicio['destacado'] ? 'Sí' : 'No' ?></td>
                             <td>
                                 <a href="editar.php?id=<?= $servicio['id'] ?>" class="btn secondary" title="Editar"><i
